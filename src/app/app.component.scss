@@ -2,4 +2,12 @@
   h1 {
     text-align: center;
   }
+  .stock-form {
+    width: 80%;
+    margin: 0 auto;
+    .stock-form-field {
+      width: 5rem;
+    }
+  }
+
 }
