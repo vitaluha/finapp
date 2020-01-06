@@ -3,10 +3,11 @@
   <h1>Finapp - lookup a stock!</h1>
   <!-- <app-stockinput></app-stockinput> -->
   <form class="stock-form">
-  <mat-form-field class="stock-form-field">
-    <input  matInput placeholder="Enter stock!" value="FB" class="input-stock">
-  </mat-form-field>
-</form>
+    <mat-form-field class="stock-form-field">
+      <input  matInput placeholder="Enter stock!" name="stockName" [(ngModel)]="stockName" class="input-stock" (change)="stockChange($event)">
+    </mat-form-field>
+  </form>
+  <h2 id="stockPrice">{{stock?.price}}</h2>
 
 </div>
 <router-outlet></router-outlet>
