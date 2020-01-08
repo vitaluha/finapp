@@ -25,6 +25,9 @@ export class ApiService {
 
   getStock(ticker): Observable<Stock> {
     // TODO: check for empty ticker
+    if (!ticker) {
+      return null;
+    }
     const url = apiUrl + ticker;
     return this.http.get<Stock>(url)
       .pipe(

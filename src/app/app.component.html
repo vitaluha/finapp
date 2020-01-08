@@ -1,7 +1,6 @@
 
 <div class="main">
   <h1>Finapp - lookup a stock!</h1>
-  <!-- <app-stockinput></app-stockinput> -->
   <form class="stock-form">
     <mat-form-field class="stock-form-field">
       <input
@@ -13,21 +12,30 @@
         [(ngModel)]="stockName" >
     </mat-form-field>
     <button mat-raised-button color="primary" (click)=stockChange(stockInput.value)>Search</button>
-
   </form>
-
   <mat-card  *ngIf="stock?.profile" class="stock-card">
-    <mat-card-header>
-      <mat-card-title>
-        <h2>{{stock?.symbol}}</h2>
+    <mat-card-header class="stock-card-header">
+      <mat-card-title class="stock-title">
+        <h4 class="stock-company-name">{{stock?.profile.companyName}}</h4>
+        <h4>({{stock?.symbol}})</h4>
+        <img src="{{stock?.profile.image}}">
       </mat-card-title>
       <mat-card-subtitle>
-        <p>{{stock?.profile.companyName}}</p>
+        <h2>
+          <span class="stock-price">{{stock?.profile.price}}</span>
+          <span class="stock-change">{{stock?.profile.changes}}</span>
+          <span class="stock-change-percent">{{stock?.profile.changesPercentage}}</span>
+        </h2>
       </mat-card-subtitle>
     </mat-card-header>
-    <img src="{{stock?.profile.image}}">
     <mat-card-content>
       <dl>
+        <dt>Beta</dt>
+        <dd>{{stock?.profile.beta}}</dd>
+        <dt>Average Volume</dt>
+        <dd>{{stock?.profile.volAvg}}</dd>
+        <dt>Market Cap</dt>
+        <dd>{{stock?.profile.mktCap}}</dd>
         <dt>CEO</dt>
         <dd>{{stock?.profile.ceo}}</dd>
       </dl>
