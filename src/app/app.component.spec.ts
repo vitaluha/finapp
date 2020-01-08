@@ -1,22 +1,23 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { componentFactoryName } from '@angular/compiler';
-import { Stock } from './stock/stock.model';
-// import { Stock } from "./stock/stock.model";
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        MatFormFieldModule,
         FormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
         MatInputModule,
-        BrowserAnimationsModule
+        MatButtonModule,
+        MatCardModule,
+        HttpClientModule
       ],
       declarations: [AppComponent]
     }).compileComponents();
@@ -43,21 +44,5 @@ describe('AppComponent', () => {
       expect(compiled.querySelector('h1').textContent).toContain('Finapp - lookup a stock!');
     });
 
-    describe('"stockChange"', () => {
-      it('should set stock symbol', () => {
-        const mockEvent = {
-          target: {
-            value: 'FB'
-          }
-        };
-        app.stockChange(mockEvent);
-
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h2').textContent).toContain(
-          '10'
-          );
-        });
-      });
-    });
   });
+});

@@ -4,10 +4,37 @@
   <!-- <app-stockinput></app-stockinput> -->
   <form class="stock-form">
     <mat-form-field class="stock-form-field">
-      <input  matInput placeholder="Enter stock!" name="stockName" [(ngModel)]="stockName" class="input-stock" (change)="stockChange($event)">
+      <input
+        matInput
+        #stockInput
+        placeholder="Enter stock!"
+        class="input-stock"
+        name="stockName"
+        [(ngModel)]="stockName" >
     </mat-form-field>
-  </form>
-  <h2 id="stockPrice">{{stock?.price}}</h2>
+    <button mat-raised-button color="primary" (click)=stockChange(stockInput.value)>Search</button>
 
+  </form>
+
+  <mat-card  *ngIf="stock?.profile" class="stock-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>{{stock?.symbol}}</h2>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <p>{{stock?.profile.companyName}}</p>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img src="{{stock?.profile.image}}">
+    <mat-card-content>
+      <dl>
+        <dt>CEO</dt>
+        <dd>{{stock?.profile.ceo}}</dd>
+      </dl>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-flat-button color="primary">{{stock?.profile.website}}</a>
+    </mat-card-actions>
+  </mat-card>
 </div>
 <router-outlet></router-outlet>

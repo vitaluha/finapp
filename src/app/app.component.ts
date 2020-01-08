@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Stock } from './stock/stock.model';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,12 @@ export class AppComponent {
   stockName = '';
   stock: Stock;
 
-  stockChange(event) {
-    if (!this.stock) {
-      this.stock = new Stock(event.target.value)
-    }
-    this.stock.symbol = event.target.value;
-    // Hardcode to 10
-    this.stock.price = 10;
-    console.log('Your stock is ' + this.stock.symbol + '\nPrice is: ' + this.stock.price);
+  constructor(private api: ApiService) { }
+
+  stockChange(ticker) {
+    this.api.getStock(ticker)
+      .subscribe(data => {
+        this.stock = new Stock(data);
+      });
   }
 }
