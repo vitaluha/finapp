@@ -11,18 +11,15 @@ import {
 } from "@angular/material";
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpHeaders, HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
-    HttpClient,
-    HttpHeaders,
-    ApiService,
+    FormsModule,
     AppRoutingModule,
     MatFormFieldModule,
     MatInputModule,
