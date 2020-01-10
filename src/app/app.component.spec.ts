@@ -43,16 +43,13 @@ describe('AppComponent', () => {
     let service: ApiService;
     let fixture: ComponentFixture<AppComponent>;
     let app: AppComponent;
-    let snackBar: MatSnackBarModule;
-    let showStockSnackBarSpy;
+    let snackBar: MatSnackBar;
     beforeEach(() => {
       fixture = TestBed.createComponent(AppComponent);
       app = fixture.debugElement.componentInstance;
       service = TestBed.get(ApiService);
       fixture = TestBed.createComponent(AppComponent);
-      app = fixture.debugElement.componentInstance;
       snackBar = TestBed.get(MatSnackBar);
-      showStockSnackBarSpy = spyOn(app, "showStockSnackBar");
     });
 
     it('should create the app', () => {
@@ -71,87 +68,101 @@ describe('AppComponent', () => {
 
     describe('"stockChange"', () => {
       const mockResponse: Stock = {
-        symbol: "FB",
+        symbol: 'FB',
         profile: {
           price: 208.61,
           beta: 0.897069,
           volAvg: 32315322,
           mktCap: 602882900000.0,
           lastDiv: 0,
-          range: "123.02-218.62",
+          range: '123.02-218.62',
           changes: -0.77,
-          changesPercentage: "(-0.37%)",
-          companyName: "Facebook Inc.",
-          exchange: "Nasdaq Global Select",
-          industry: "Online Media",
-          website: "http://www.facebook.com",
+          changesPercentage: '(-0.37%)',
+          companyName: 'Facebook Inc.',
+          exchange: 'Nasdaq Global Select',
+          industry: 'Online Media',
+          website: 'http://www.facebook.com',
           description:
-            "Facebook Inc is the world's largest online social network. Its products are Facebook, Instagram, Messenger, WhatsApp, and Oculus. Its products enable people to connect and share through mobile devices and personal computers.",
-          ceo: "Mark Zuckerberg",
-          sector: "Technology",
-          image: "https://financialmodelingprep.com/images-New-jpg/FB.jpg"
+            'Facebook Inc is the world\'s largest online social network. Its products are Facebook, Instagram, Messenger, WhatsApp, and Oculus. Its products enable people to connect and share through mobile devices and personal computers.',
+          ceo: 'Mark Zuckerberg',
+          sector: 'Technology',
+          image: 'https://financialmodelingprep.com/images-New-jpg/FB.jpg'
         }
       };
-      it("should make a call to api service when ticker is provided", () => {
-        const apiSpy = spyOn(service, "getStock").and.returnValue(
+      it('should make a call to api service when ticker is provided', () => {
+        const apiSpy = spyOn(service, 'getStock').and.returnValue(
           of(mockResponse)
         );
-        app.stockChange("FB");
-        expect(apiSpy).toHaveBeenCalledWith("FB");
+        app.stockChange('FB');
+        expect(apiSpy).toHaveBeenCalledWith('FB');
       });
-      it("should not make a call to api service when ticker is not provided", () => {
-        const apiSpy = spyOn(service, "getStock").and.returnValue(
+      it('should not make a call to api service when ticker is not provided', () => {
+        const apiSpy = spyOn(service, 'getStock').and.returnValue(
           of(mockResponse)
         );
-        app.stockChange("");
+        const showStockSnackBarSpy = spyOn(app, "showStockSnackBar");
+        app.stockChange('');
         expect(apiSpy).not.toHaveBeenCalled();
         expect(showStockSnackBarSpy).toHaveBeenCalledWith(
-          "Please enter a stock"
+          'Please enter a stock'
         );
       });
-      it("should show a snackbar message when ticker is provided but no stock found", () => {
-        const apiSpy = spyOn(service, "getStock").and.returnValue(of(empty));
-        app.stockChange("zzz");
-        expect(showStockSnackBarSpy).toHaveBeenCalledWith("Stock not found");
+      it('should show a snackbar message when ticker is provided but no stock found', () => {
+        const apiSpy = spyOn(service, 'getStock').and.returnValue(of(empty));
+        const showStockSnackBarSpy = spyOn(app, "showStockSnackBar");
+        app.stockChange('zzz');
+        expect(showStockSnackBarSpy).toHaveBeenCalledWith('Stock not found');
       });
     });
 
     describe('"getPriceColor"', () => {
-      it("should return green if change is positive", () => {
+      it('should return green if change is positive', () => {
         const mockChange = 0.73;
         expect(app.getPriceColor(mockChange)).toEqual('green');
       });
-      it("should return green if change is positive", () => {
+      it('should return green if change is positive', () => {
         const mockChange = -2.3;
-        expect(app.getPriceColor(mockChange)).toEqual("red");
+        expect(app.getPriceColor(mockChange)).toEqual('red');
       });
-      it("should return green if change is positive", () => {
+      it('should return green if change is positive', () => {
         const mockChange = 0.0;
-        expect(app.getPriceColor(mockChange)).toEqual("grey");
+        expect(app.getPriceColor(mockChange)).toEqual('grey');
       });
-      it("should return green if change is positive", () => {
+      it('should return green if change is positive', () => {
         const mockChange = null;
-        expect(app.getPriceColor(mockChange)).toEqual("grey");
+        expect(app.getPriceColor(mockChange)).toEqual('grey');
       });
     });
     describe('"getFormattedNumber"', () => {
       it('should show 4510000 as 4.51M', () => {
-        expect(app.getFormattedNumber(4510000)).toEqual("4.51M");
+        expect(app.getFormattedNumber(4510000)).toEqual('4.51M');
       });
-      it("should show 9000000 as 9M", () => {
-        expect(app.getFormattedNumber(9000000)).toEqual("9.00M");
+      it('should show 9000000 as 9M', () => {
+        expect(app.getFormattedNumber(9000000)).toEqual('9.00M');
       });
-      it("should show 99 as 99", () => {
-        expect(app.getFormattedNumber(99)).toEqual("99.00");
+      it('should show 99 as 99', () => {
+        expect(app.getFormattedNumber(99)).toEqual('99.00');
       });
-      it("should show 34670000001 as 34B", () => {
-        expect(app.getFormattedNumber(34670000001)).toEqual("34.67B");
+      it('should show 34670000001 as 34B', () => {
+        expect(app.getFormattedNumber(34670000001)).toEqual('34.67B');
       });
-      it("should show 1230000000000 as 1.2T", () => {
-        expect(app.getFormattedNumber(1230000000000)).toEqual("1.23T");
+      it('should show 1230000000000 as 1.2T', () => {
+        expect(app.getFormattedNumber(1230000000000)).toEqual('1.23T');
       });
-      it("should show 123456789 as 123,456,789", () => {
-        expect(app.getFormattedNumber(123456789)).toEqual("123,456,789");
+      it('should show 123456789 as 123,456,789', () => {
+        expect(app.getFormattedNumber(123456789, '0,0')).toEqual('123,456,789');
+      });
+      it('should show 10000 as 10,000', () => {
+        expect(app.getFormattedNumber(10000, '0,0')).toEqual('10,000');
+      });
+    });
+
+    describe('"showStockSnackBar"', () => {
+      it('should show snack bar with provided message', () => {
+        const snackBarSpy = spyOn(snackBar, 'open');
+        app.showStockSnackBar('test message');
+        expect(snackBarSpy).toHaveBeenCalled();
+        expect(snackBarSpy).toHaveBeenCalledWith('test message', 'Close', {duration: 2000});
       });
     });
   });
