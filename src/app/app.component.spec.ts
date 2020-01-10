@@ -134,16 +134,25 @@ describe('AppComponent', () => {
         expect(app.getPriceColor(mockChange)).toEqual("grey");
       });
     });
-    describe('"getFormattedMarketCap"', () => {
-      it('should show 4500000 as 4.5M', () => {
-        expect(app.getFormattedMarketCap(4500000)).toEqual('4.5M');
+    describe('"getFormattedNumber"', () => {
+      it('should show 4510000 as 4.51M', () => {
+        expect(app.getFormattedNumber(4510000)).toEqual("4.51M");
       });
       it("should show 9000000 as 9M", () => {
-        expect(app.getFormattedMarketCap(4500000)).toEqual("9M");
+        expect(app.getFormattedNumber(9000000)).toEqual("9.00M");
       });
-
+      it("should show 99 as 99", () => {
+        expect(app.getFormattedNumber(99)).toEqual("99.00");
+      });
+      it("should show 34670000001 as 34B", () => {
+        expect(app.getFormattedNumber(34670000001)).toEqual("34.67B");
+      });
+      it("should show 1230000000000 as 1.2T", () => {
+        expect(app.getFormattedNumber(1230000000000)).toEqual("1.23T");
+      });
+      it("should show 123456789 as 123,456,789", () => {
+        expect(app.getFormattedNumber(123456789)).toEqual("123,456,789");
+      });
     });
   });
-
-
 });

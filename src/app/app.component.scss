@@ -3,6 +3,9 @@
   flex-direction: column;
   h1 {
     text-align: center;
+    @media (max-width: 800px) {
+      font-size: 1.5rem;
+    }
   }
   .stock-form {
     width: 80%;
@@ -15,8 +18,8 @@
       width: 10rem;
     }
   }
-  h2 {
-
+  h4 {
+    margin: 0.5rem;
   }
   mat-card {
     max-width: 1024px;
@@ -37,12 +40,22 @@
     }
     .box-1 {
       width: 180px;
+      @media (max-width: 800px) {
+        width: inherit;
+      }
+      img {
+        max-height: 64px;
+      }
     }
     .box-2 {
-      padding-left: 4rem;
+      display: flex;
       flex: 1;
+      padding-left: 4rem;
+      @media (max-width: 800px) {
+        padding-left: 0;
+      }
     }
-    mat-icon.stock-arrow.mat-icon.notranslate.material-icons.mat-icon-no-color {
+    .stock-arrow {
       vertical-align: middle;
     }
   }
@@ -51,9 +64,13 @@
     margin: 0;
     .stock-price {
       font-size: 1.5rem;
-      .stock-arrow {
-
+      color: #222;
+      padding-right: 2rem;
+      @media (max-width: 800px) {
+        display: block;
       }
+    }
+    .stock-price, .stock-change, .stock-change-percent{
       &.green {
         color: green;
       }
@@ -65,32 +82,47 @@
       }
     }
     .stock-change {
-      padding-left: 2rem;
+
     }
     .stock-change-percent {
       padding-left: 1rem;
     }
   }
   mat-card-content {
-    div {
+    margin: 0 1rem 1rem;
+    display: flex;
+    @media (max-width: 800px) {
+      flex-direction: column;
+      margin: 0;
+    }
+    .stock-numbers {
+      flex: 1;
+    }
+    .stock-info {
+      flex: 1;
+    }
+    section div {
       display: flex;
       line-height: 2rem;
-      border-bottom: 1px solid #ecedee;
     }
     label.label {
-      width: 180px;
+      width: 136px;
+      border-bottom: 1px solid #ecedee;
     }
     label.value {
-      flex: 2;
       font-weight: bold;
       font-size: 1rem;
-      padding-left: 2rem;
+      border-bottom: 1px solid #ecedee;
       &.description {
         line-height: 1.2rem;
+        padding-left: 4rem;
       }
     }
   }
   .stock-search-btn {
     margin-left: 2rem;
+  }
+  mat-card-actions {
+    margin: 0 1rem;
   }
 }
