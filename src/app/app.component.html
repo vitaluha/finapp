@@ -22,23 +22,32 @@
       </mat-card-title>
       <mat-card-subtitle>
         <h2>
-          <span class="stock-price">{{stock?.profile.price}}</span>
+          <span class="stock-price {{stock?.profile.changes > 0 ? 'green' : 'red'}}">{{stock?.profile.price}}
+            <mat-icon>arrow_drop_down</mat-icon>
+          </span>
           <span class="stock-change">{{stock?.profile.changes}}</span>
           <span class="stock-change-percent">{{stock?.profile.changesPercentage}}</span>
         </h2>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <dl>
-        <dt>Beta</dt>
-        <dd>{{stock?.profile.beta}}</dd>
-        <dt>Average Volume</dt>
-        <dd>{{stock?.profile.volAvg}}</dd>
-        <dt>Market Cap</dt>
-        <dd>{{stock?.profile.mktCap}}</dd>
-        <dt>CEO</dt>
-        <dd>{{stock?.profile.ceo}}</dd>
-      </dl>
+      <div>
+        <label class="label">Beta</label>
+        <label class="value">{{stock?.profile.beta}}</label>
+      </div>
+      <div>
+        <label class="label">Average Volume</label>
+        <label class="value">{{stock?.profile.volAvg}}</label>
+      </div>
+      <div>
+        <label class="label">Market Cap</label>
+        <label class="value">{{stock?.profile.mktCap}}</label>
+      </div>
+
+      <div>
+        <label class="label">CEO</label>
+        <label class="value">{{stock?.profile.ceo}}</label>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <a mat-flat-button color="primary">{{stock?.profile.website}}</a>

@@ -1,6 +1,6 @@
 .main {
   h1 {
-    // text-align: center;
+    text-align: center;
   }
   .stock-form {
     width: 80%;
@@ -36,15 +36,38 @@
   }
   mat-card-subtitle.mat-card-subtitle {
     opacity: 1;
-    color: green;
+    margin: 0;
     .stock-price {
       font-size: 1.5rem;
+      &.green {
+        color: green;
+      }
+      &.red {
+        color: red;
+      }
     }
     .stock-change {
       padding-left: 2rem;
     }
     .stock-change-percent {
       padding-left: 1rem;
+    }
+  }
+  mat-card-content {
+    div {
+      display: flex;
+      line-height: 2rem;
+      border-bottom: 1px solid #ecedee;
+      margin: 0 16px;
+    }
+    label.label {
+      width: 180px;
+    }
+    label.value {
+      flex: 2;
+      font-weight: bold;
+      font-size: 1rem;
+      padding-left: 2rem;
     }
   }
 }

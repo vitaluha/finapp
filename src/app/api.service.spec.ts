@@ -1,5 +1,5 @@
 import {
-  TestBed
+  TestBed, async, inject, fakeAsync
 } from '@angular/core/testing';
 
 import {
@@ -9,20 +9,21 @@ import {
 import {
   ApiService
 } from './api.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Stock } from './stock/stock.model';
+import { HttpClient } from '@angular/common/http';
 
 
 describe('ApiService', () => {
   let service: ApiService;
+  let httpClient: HttpClient;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ApiService]
     });
-    service = TestBed.get(
-      ApiService
-    );
+    service = TestBed.get(ApiService);
+    httpClient = TestBed.get(HttpClient);
   });
 
   it('should be created', () => {
@@ -44,10 +45,34 @@ describe('ApiService', () => {
       expect(service.getStock(null)).toBeNull();
     });
     it('should return Stock object in Observable when ticker is provided', () => {
-      service.getStock('AAPL').subscribe(data => {
-        expect(data).toEqual(jasmine.any(Stock));
+
+      const mockResponse: Stock = {
+        symbol: 'FB',
+        profile: {
+          price: 208.61,
+          beta: 0.897069,
+          volAvg: 32315322,
+          mktCap: 602882900000.0,
+          lastDiv: 0,
+          range: '123.02-218.62',
+          changes: -0.77,
+          changesPercentage: '(-0.37%)',
+          companyName: 'Facebook Inc.',
+          exchange: 'Nasdaq Global Select',
+          industry: 'Online Media',
+          website: 'http://www.facebook.com',
+          description:
+            'Facebook Inc is the world\'s largest online social network. Its products are Facebook, Instagram, Messenger, WhatsApp, and Oculus. Its products enable people to connect and share through mobile devices and personal computers.',
+          ceo: 'Mark Zuckerberg',
+          sector: 'Technology',
+          image: 'https://financialmodelingprep.com/images-New-jpg/FB.jpg'
+        }
+      };
+      const httpSpy = spyOn(httpClient, 'get').and.returnValue(of(mockResponse));
+      service.getStock('FBa').subscribe(res => {
+        expect(httpSpy).toHaveBeenCalledTimes(1);
+        expect(res).toEqual(mockResponse);
       });
     });
-    // expect(data.profile.description).toEqual("test");
   });
 });
