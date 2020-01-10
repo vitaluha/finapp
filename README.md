@@ -2,7 +2,7 @@
 
 Live app: [Finapp](https://vitaluha.github.io/finapp/)
 
-![Finapp](https://github.com/vitaluha/finapp/screen.png "Finapp Screenshot")
+![Finapp](https://raw.githubusercontent.com/vitaluha/finapp/master/screen.png "Finapp Screenshot")
 
 ___
 
