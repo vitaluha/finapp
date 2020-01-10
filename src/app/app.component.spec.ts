@@ -66,7 +66,7 @@ describe('AppComponent', () => {
     it('should render title in a h1 tag', () => {
       fixture.detectChanges();
       const compiled = fixture.debugElement.nativeElement;
-      expect(compiled.querySelector('h1').textContent).toContain('Finapp - lookup a stock!');
+      expect(compiled.querySelector('h1').textContent).toContain('Finapp - look up a stock!');
     });
 
     describe('"stockChange"', () => {
@@ -119,9 +119,29 @@ describe('AppComponent', () => {
     describe('"getPriceColor"', () => {
       it("should return green if change is positive", () => {
         const mockChange = 0.73;
-        // const getPriceColorSpy = spyOn(app, 'getPriceColor');
         expect(app.getPriceColor(mockChange)).toEqual('green');
       });
+      it("should return green if change is positive", () => {
+        const mockChange = -2.3;
+        expect(app.getPriceColor(mockChange)).toEqual("red");
+      });
+      it("should return green if change is positive", () => {
+        const mockChange = 0.0;
+        expect(app.getPriceColor(mockChange)).toEqual("grey");
+      });
+      it("should return green if change is positive", () => {
+        const mockChange = null;
+        expect(app.getPriceColor(mockChange)).toEqual("grey");
+      });
+    });
+    describe('"getFormattedMarketCap"', () => {
+      it('should show 4500000 as 4.5M', () => {
+        expect(app.getFormattedMarketCap(4500000)).toEqual('4.5M');
+      });
+      it("should show 9000000 as 9M", () => {
+        expect(app.getFormattedMarketCap(4500000)).toEqual("9M");
+      });
+
     });
   });
 

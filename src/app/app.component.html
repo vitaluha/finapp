@@ -1,29 +1,35 @@
 
 <div class="main">
-  <h1>Finapp - lookup a stock!</h1>
+  <h1>Finapp - look up a stock!</h1>
   <form class="stock-form">
     <mat-form-field class="stock-form-field">
       <input
         matInput
         #stockInput
-        placeholder="Enter stock!"
+        placeholder="Enter stock symbol"
         class="input-stock"
         name="stockName"
         [(ngModel)]="stockName" >
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)=stockChange(stockInput.value)>Search</button>
+    <button mat-raised-button color="primary" class="stock-search-btn" (click)=stockChange(stockInput.value)>Search</button>
   </form>
   <mat-card  *ngIf="stock?.profile" class="stock-card">
     <mat-card-header class="stock-card-header">
       <mat-card-title class="stock-title">
-        <h4 class="stock-company-name">{{stock?.profile.companyName}}</h4>
-        <h4>({{stock?.symbol}})</h4>
-        <img src="{{stock?.profile.image}}">
+        <div class="box-1">
+          <img src="{{stock?.profile.image}}">
+        </div>
+        <div class="box-2">
+          <h4 class="stock-company-name">{{stock?.profile.companyName}}</h4>
+          <h4>({{stock?.symbol}})</h4>
+        </div>
       </mat-card-title>
+
       <mat-card-subtitle>
         <h2>
-          <span class="stock-price {{stock?.profile.changes > 0 ? 'green' : 'red'}}">{{stock?.profile.price}}
-            <mat-icon>arrow_drop_down</mat-icon>
+          <mat-icon class="stock-arrow">{{getPriceColor(stock?.profile.changes) === 'green' ? 'arrow_drop_up' : 'arrow_drop_down'}}</mat-icon>
+          <span class="stock-price {{getPriceColor(stock?.profile.changes)}}">
+            {{stock?.profile.price}}
           </span>
           <span class="stock-change">{{stock?.profile.changes}}</span>
           <span class="stock-change-percent">{{stock?.profile.changesPercentage}}</span>
@@ -41,7 +47,11 @@
       </div>
       <div>
         <label class="label">Market Cap</label>
-        <label class="value">{{stock?.profile.mktCap}}</label>
+        <label class="value">{{getFormattedMarketCap(stock?.profile.mktCap)}}</label>
+      </div>
+      <div>
+        <label class="label">Description</label>
+        <label class="value description">{{stock?.profile.description}}</label>
       </div>
 
       <div>

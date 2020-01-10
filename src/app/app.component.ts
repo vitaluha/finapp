@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Stock } from './stock/stock.model';
 import { ApiService } from './api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as numeral from "numeral";
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,17 @@ export class AppComponent {
   }
 
   getPriceColor(change: number) {
-    return 'red';
+    if (!change) {
+      return 'grey';
+    } else if (change > 0) {
+      return 'green';
+    } else {
+      return 'red';
+    }
+  }
+
+  getFormattedMarketCap(value: number) {
+    return '4.5M';
+    // return numeral(1000).format("0,0");
   }
 }

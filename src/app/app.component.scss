@@ -1,10 +1,16 @@
 .main {
+  display: flex;
+  flex-direction: column;
   h1 {
     text-align: center;
   }
   .stock-form {
     width: 80%;
+    max-width: 1024px;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .stock-form-field {
       width: 10rem;
     }
@@ -13,16 +19,13 @@
 
   }
   mat-card {
+    max-width: 1024px;
     width: 80%;
     margin: 0 auto;
     padding: 1rem;
   }
-  .stock-card-header,
-  .stock-card-header mat-card-title {
-    width: 100%
-  }
   .mat-card-header-text {
-    width: 100%;
+    margin: 0;
   }
   mat-card-title {
     display: flex;
@@ -32,18 +35,33 @@
     .stock-company-name {
       flex: 1;
     }
-
+    .box-1 {
+      width: 180px;
+    }
+    .box-2 {
+      padding-left: 4rem;
+      flex: 1;
+    }
+    mat-icon.stock-arrow.mat-icon.notranslate.material-icons.mat-icon-no-color {
+      vertical-align: middle;
+    }
   }
   mat-card-subtitle.mat-card-subtitle {
     opacity: 1;
     margin: 0;
     .stock-price {
       font-size: 1.5rem;
+      .stock-arrow {
+
+      }
       &.green {
         color: green;
       }
       &.red {
         color: red;
+      }
+      &.grey {
+        color: grey;
       }
     }
     .stock-change {
@@ -58,7 +76,6 @@
       display: flex;
       line-height: 2rem;
       border-bottom: 1px solid #ecedee;
-      margin: 0 16px;
     }
     label.label {
       width: 180px;
@@ -68,6 +85,12 @@
       font-weight: bold;
       font-size: 1rem;
       padding-left: 2rem;
+      &.description {
+        line-height: 1.2rem;
+      }
     }
+  }
+  .stock-search-btn {
+    margin-left: 2rem;
   }
 }
